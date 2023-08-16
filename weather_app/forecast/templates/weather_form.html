@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron mt-5">
+        <h1 class="display-4">Weather Forecast</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="city_name">Enter City Name:</label>
+                <input type="text" class="form-control" id="city_name" name="city_name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Forecast</button>
+        </form>
+        {% if temperature %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <h2 class="card-title">Weather Forecast for {{ city }}</h2>
+                <p class="card-text">
+                    {% if description == "Sunny" %}
+                        <i class="fas fa-sun mr-2"></i>
+                    {% elif description == "Rainy"%}
+                        <i class="fas fa-cloud-showers-heavy mr-2"></i>
+                    {% elif description == "Mist" %}
+                        <i class="fas fa-cloud-showers-heavy mr-2"></i>
+                    {% elif description == "Cloudy"%}
+                        <i class="fas fa-cloud mr-2"></i>
+                    {% elif description == "Partly cloudy" %}
+                        <i class="fas fa-cloud mr-2"></i>
+                    {% elif description == "Stormy" %}
+                        <i class="fas fa-bolt mr-2"></i>
+                    {% endif %}
+                    Temperature: {{ temperature }}°C
+                </p>
+                <p class="card-text">
+                    {% if description == "sunny" %}
+                        <i class="fas fa-sun mr-2"></i>
+                    {% elif description == "rainy" %}
+                        <i class="fas fa-cloud-showers-heavy mr-2"></i>
+                    {% elif description == "cloudy" %}
+                        <i class="fas fa-cloud mr-2"></i>
+                    {% elif description == "stormy" %}
+                        <i class="fas fa-bolt mr-2"></i>
+                    {% endif %}
+                    Description: {{ description }}
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            No weather information available yet.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
